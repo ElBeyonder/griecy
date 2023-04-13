@@ -1,0 +1,8 @@
+.dropify-message p{
+    font-size: 15pt !important;
+}
+
+#modal_agregar_item .modal-dialog{
+    width: 80% !important;
+    min-width: 80% !important;
+}

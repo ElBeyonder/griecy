@@ -1,0 +1,134 @@
+
+    <div tabindex="-1" class="modal fade" id="modal_agregar_item" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_agregar_jac" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                           <div class="col-md-7">
+                               <div class="row">
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-4">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="text" name="nombre" placeholder=" "/>
+                                               <span>Nombre<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-4">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required readonly type="text" class="date-input" name="personeria_juridica" placeholder=" "/>
+                                               <span>Personeria Juridica<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-4">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="number" name="celular" placeholder=" "/>
+                                               <span>Celular<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-4">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="number" name="nit" placeholder=" "/>
+                                               <span>NIT<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-4">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="number" name="RUT" placeholder=" "/>
+                                               <span>RUT<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-4">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="number" name="RUT" placeholder=" "/>
+                                               <span>RUC #<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                       <div class="form-group">
+                                           <div class="form-control-wrap">
+                                               <select id="vereda" name="vereda" class="form-select js-select2" data-ui="xl" data-placeholder="Elegir vereda...">
+                                                   <?php echo lista_veredas_select($conn); ?>
+                                               </select>
+                                               <label class="form-label-outlined">Vereda</label>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="text" name="direccion_fisica" placeholder=" "/>
+                                               <span>Direccion Fisica<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input required type="email" name="correo" placeholder=" "/>
+                                               <span>Correo<span class="text-danger">*</span></span>
+                                           </label>
+                                       </div>
+                                   </div>
+                                   <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                       <div class="form-group">
+                                           <label class="matter-textfield-outlined col-12">
+                                               <input type="number" name="correo_password" placeholder=" "/>
+                                               <span>Contraseña de correo</span>
+                                           </label>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="mb-1 mt-1 col-sm-12 col-md-12 text-center">
+                                        <label>Logo</label>
+                                        <input data-height="100" data-allowed-file-extensions="jpg jpeg png gif bmp svg" type="file" id="logo" name="logo" class="dropify">
+                                    </div>
+                                    <div class="mb-1 mt-1 col-sm-12 col-md-12 text-center">
+                                        <label>Documento de Ruc <span class="text-danger">*</span></label>
+                                        <input data-height="100" data-allowed-file-extensions="jpg jpeg png pdf" type="file" id="ruc" name="ruc_documento" class="dropify">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

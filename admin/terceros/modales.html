@@ -1,0 +1,154 @@
+
+    <div tabindex="-1" class="modal fade" id="modal_agregar_item" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_agregar_tercero" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="text" required name="nombre_completo" placeholder=" "/>
+                                        <span>Nombre Completo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select multiple="multiple" name="tipo[]" class="form-select js-select2" data-ui="xl">
+                                            <option value="cliente">cliente</option>
+                                            <option value="proveedor">proveedor</option>
+                                        </select>
+                                        <label class="form-label-outlined">Tipo <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="number" required name="num_documento_identidad" placeholder=" "/>
+                                        <span># identidicacion<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="number" required name="celular" placeholder=" "/>
+                                        <span>Celular<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="email" required name="correo" placeholder=" "/>
+                                        <span>correo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="text" name="direccion_fisica" placeholder=" "/>
+                                        <span>Direccion</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal_editar_tercero" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_editar_tercero" method="post">
+                <input type="hidden" id="id_editar_tercero" name="id" class="d-none">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="text" required name="nombre_completo" id="nombre_completo" placeholder=" "/>
+                                        <span>Nombre Completo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select multiple class="form-select js-select2" data-ui="xl" name="tipo" id="tipo">
+                                            <option value="cliente">cliente</option>
+                                            <option value="proveedor">proveedor</option>
+                                        </select>
+                                        <label class="form-label-outlined">Tipo <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="number" required name="num_documento_identidad" id="num_documento_identidad" placeholder=" "/>
+                                        <span># identidicacion<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="number" required name="celular" id="celular" placeholder=" "/>
+                                        <span>Celular<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="email" required name="correo" id="correo" placeholder=" "/>
+                                        <span>correo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="text" name="direccion_fisica" id="direccion_fisica" placeholder=" "/>
+                                        <span>Direccion</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Editar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+

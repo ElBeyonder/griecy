@@ -1,0 +1,50 @@
+Options +FollowSymLinks
+Options -Indexes
+#<IfModule mod_headers.c>
+#  <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+#    Header set Cache-Control "max-age=2592000, public"
+#  </FilesMatch>
+#</IfModule>
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+#    RewriteCond %{ENV:HTTPS} !on [NC]
+#    RewriteCond %{HTTP_HOST} ^www.colred.com [NC]
+#    RewriteCond %{HTTP_HOST} ^colred\.com [OR]
+#    RewriteCond %{HTTP_HOST} ^www\.colred\.com
+#    RewriteRule ^(.*)$ https://colred.com/$1 [R=301,L,NE]
+#    RewriteRule ^(.*)$ https://colred.com/$1 [L,R=301]
+#    RewriteRule ^(.*)$ https://www.colred.com/$1 [R,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php
+
+</IfModule>
+<IfModule mod_deflate.c>
+  # Activar la compresión
+  SetOutputFilter DEFLATE
+  # Tipos de archivo a comprimir
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css application/javascript application/x-javascript application/x-httpd-php image/svg+xml
+  # Nivel de compresión
+  DeflateCompressionLevel 9
+  # No comprimir archivos pequeños
+  DeflateFilterNote ratio
+  LogFormat '"%r" %{outstream}n/%{instream}n (%{ratio}n%%)' deflate
+</IfModule>
+#<IfModule mod_expires.c>
+#  ExpiresActive On
+#  ExpiresDefault "access plus 1 month"
+#  ExpiresByType text/html "access plus 1 seconds"
+#  ExpiresByType text/css "access plus 1 month"
+#  ExpiresByType text/javascript "access plus 1 month"
+#  ExpiresByType application/javascript "access plus 1 month"
+#  ExpiresByType image/gif "access plus 1 month"
+#  ExpiresByType image/jpg "access plus 1 month"
+#  ExpiresByType image/jpeg "access plus 1 month"
+#  ExpiresByType image/png "access plus 1 month"
+#  ExpiresByType image/svg+xml "access plus 1 month"
+#  ExpiresByType image/x-icon "access plus 1 month"
+#  ExpiresByType application/pdf "access plus 1 month"
+#  ExpiresByType application/x-shockwave-flash "access plus 1 month"
+#</IfModule>

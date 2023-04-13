@@ -1,0 +1,182 @@
+
+    <div tabindex="-1" class="modal fade" id="modal_agregar_item" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_agregar_usuarios" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4" data-select2-id="12">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control form-control-xl form-control-outlined" id="nombre_completo" name="nombre_completo" required>
+                                        <label class="form-label-outlined" for="nombre_completo">Nombre completo <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control form-control-xl form-control-outlined" id="usuario" name="usuario" required>
+                                        <label class="form-label-outlined" for="usuario">Usuario <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <input type="number" class="form-control form-control-xl form-control-outlined" id="celular" name="celular" required>
+                                        <label class="form-label-outlined" for="celular">Celular <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <input type="email" class="form-control form-control-xl form-control-outlined" id="correo" name="correo" required>
+                                        <label class="form-label-outlined" for="correo">Correo electrónico <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control form-control-xl form-control-outlined" id="direccion_fisica" name="direccion_fisica">
+                                        <label class="form-label-outlined" for="direccion_fisica">Dirección física </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select required class="form-select js-select2 select2-hidden-accessible" data-ui="xl" id="tipo_usuario" name="tipo_usuario" data-select2-id="outlined-select">
+                                            <option value="vendedor">Vendedor</option>
+                                            <option value="administrador">Administrador</option>
+                                        </select>
+                                        <label class="form-label-outlined" for="tipo_usuario">Tipo <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <div class="form-icon form-icon-right">
+                                            <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
+                                                <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                                                <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                            </a>
+                                        </div>
+                                        <input type="password" class="form-control form-control-xl form-control-outlined" id="password" name="password" required>
+                                        <label class="form-label-outlined" for="password">Contraseña <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <div class="form-icon form-icon-right">
+                                            <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="confirm_password">
+                                                <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                                                <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                            </a>
+                                        </div>
+                                        <input type="password" class="form-control form-control-xl form-control-outlined" id="confirm_password" name="confirm_password" required>
+                                        <label class="form-label-outlined" for="confirm_password">Confirmar Contraseña <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal_editar_usuario" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_editar_usuario" method="post">
+                <input type="hidden" id="id_editar_usuario" name="id" class="d-none">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required id="nombre_competo_editar" name="nombre_completo" placeholder=" "/>
+                                        <span>Nombre Completo <span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required id="usuario_editar" name="usuario" placeholder=" "/>
+                                        <span>Usuario <span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required id="celular_editar" name="celular_completo" placeholder=" "/>
+                                        <span>Celular <span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required id="correo_editar" name="correo_electronico" placeholder=" "/>
+                                        <span>Correo Electronico <span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required id="direccion_fisica_editar" name="direccion_fisica" placeholder=" "/>
+                                        <span>Direccion física </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select class="form-select js-select2" data-ui="xl" id="tipo_usuario_editar" name="tipo_usuario">
+                                            <option value="vendedor">vendedor</option>
+                                            <option value="administrador">administrador</option>
+                                        </select>
+                                        <label class="form-label-outlined" for="tipo_usuario_editar">Tipo usuario <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Editar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
