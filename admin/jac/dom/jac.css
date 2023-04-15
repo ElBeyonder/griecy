@@ -2,7 +2,20 @@
     font-size: 15pt !important;
 }
 
+.modal{
+    width: 100% !important;
+    justify-content: center !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+}
+
 #modal_agregar_item .modal-dialog{
     width: 80% !important;
     min-width: 80% !important;
+    margin: auto !important;
+}
+
+td.text-center{
+    text-align: center !important;
+    vertical-align: middle !important;
 }

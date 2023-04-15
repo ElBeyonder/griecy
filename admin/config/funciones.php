@@ -522,7 +522,7 @@
         echo $output;
 
     }
-    function tabla_jac($conn){
+    function tabla_jac($conn, $link_general){
         /* variables */
         $tabla ='junta_accion_comunal';
         $limit = escape_post_value($conn,'limit', 5);
@@ -530,13 +530,25 @@
         $search = escape_post_value($conn,'search', '');
         $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
         $start = ($page - 1) * ($limit ?? 5);
-
         /* variables (fin) */
 
 
-        $query=" SELECT * FROM ".$tabla."  ";
+        $query=" SELECT ".$tabla.".id, ".$tabla.".logo, ".$tabla.".nombre, ".$tabla.".personeria_juridica, ".$tabla.".nit, ".$tabla.".rut,  ".$tabla.".ruc_numero, ".$tabla.".email,
+                 vereda.nombre as vereda
+                 FROM ".$tabla."  
+                 INNER JOIN vereda ON ".$tabla.".id_vereda = vereda.id
+               ";
         if (!empty($search)){
-            $query.=' WHERE ('.$tabla.'.nombre_completo LIKE "%'.str_replace(' ', '%', $search).'%")';
+            $query.=' WHERE (
+                    '.$tabla.'.nombre LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.nit LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.rut LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.ruc_numero LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.email LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR vereda.nombre LIKE "%'.str_replace(' ', '%', $search).'%"
+                    
+                    )
+                    ';
         }
 
         $result1 = $conn->query($query);
@@ -556,7 +568,6 @@
                                     <th class="text-center">NIT</th>
                                     <th class="text-center">RUT</th>
                                     <th class="text-center">RUC</th>
-                                    <th class="text-center">Correo</th>
                                     <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-toolbox"></i></th> 
                                 </tr>
                             </thead>
@@ -565,20 +576,23 @@
             $result->data_seek(0); // Volver al primer resultado
             while ($row = $result->fetch_assoc()) {
 
-                $avatar = obtenerPrimerasDosLetras($row['nombre_completo']);
-                $img_avatar='<div class="user-avatar"><span>'.$avatar.'</span></div>';
+                $avatar = obtenerPrimerasDosLetras($row['nombre']);
+                if (empty($row['logo'])){
+                    $img_avatar='<div class="user-avatar"><span>'.$avatar.'</span></div>';
+                }else{
+                    $img_avatar='<img class="img-jac" height="50px" src="'.$link_general.'admin/jac/dom/img/'.$row['logo'].'" alt="">';
+                }
 
                 $output.='<tr>';
                 $output.='
-                          <td class="text-center">'.$row['id'].'</td>
-                          <td class="text-center"></td>
+                          <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
+                          <td class="text-center">'.$img_avatar.'</td>
                           <td class="text-center">'.$row['vereda'].'</td>
                           <td class="text-center">'.$row['nombre'].'</td>
                           <td class="text-center">'.$row['personeria_juridica'].'</td>
                           <td class="text-center">'.$row['nit'].'</td>
                           <td class="text-center">'.$row['rut'].'</td>
                           <td class="text-center">'.$row['ruc_numero'].'</td>
-                          <td class="text-center">'.$row['correo'].'</td>
                           <td class="text-center">
                               <div class="btn-group">
                                   <button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_editar_tercero" type="button" class="leer btn btn-outline-success">
@@ -602,7 +616,6 @@
         echo $output;
 
     }
-
     /* Tablas (FIN) */
 
 

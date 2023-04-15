@@ -43,7 +43,15 @@
                                 <div class="nk-content-body">
                                     <div class="nk-block bg-white mt-3 p-3 shadow">
                                         <div class="row p-3">
-                                            <div class="col-sm-12" id="#content_result_items"><?php echo tabla_jac($conn); ?></div>
+                                            <div class="form-control-wrap" style="width: 200px;">
+                                                <select id="vereda_filtro" class="form-select js-select2" data-ui="xl" data-placeholder="Elegir vereda...">
+                                                    <?php echo lista_veredas_select($conn); ?>
+                                                </select>
+                                                <label class="form-label-outlined">Vereda</label>
+                                            </div>
+                                        </div>
+                                        <div class="row p-3">
+                                            <div id="content_result_items" class="col-sm-12 content-list"><?php tabla_jac($conn, $link_general); ?></div>
                                         </div>
                                     </div>
                                 </div>

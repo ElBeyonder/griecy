@@ -12,17 +12,17 @@
     $celular = escape_post_value($conn,'celular');
     $nit = escape_post_value($conn,'nit');
     $rut = escape_post_value($conn,'rut');
-    $ruc_numero = escape_post_value($conn,'ruc');
+    $ruc_numero = escape_post_value($conn,'ruc_numero');
     $correo = escape_post_value($conn,'correo');
     $password_correo = escape_post_value($conn,'correo_password');
     $direccion_fisica = escape_post_value($conn,'direccion_fisica');
     $vereda = escape_post_value($conn,'vereda', 1);
-    $logo = get_name_imagen($_FILES['logo'], $ruta_carpeta);
-    $ruc_doc = get_name_imagen($_FILES['ruc_documento'], $ruta_carpeta);
 
 
     switch ($opcion){
         case 1:
+            $logo = get_name_imagen($_FILES['logo'], $ruta_carpeta) ?? '';
+            $ruc_doc = get_name_imagen($_FILES['ruc_documento'], $ruta_carpeta) ?? '';
             $columnas = array('`logo`, `nombre`, `personeria_juridica`, `celular`, `nit`, `rut`, `ruc_numero`, `ruc_documento`, `id_vereda`, `email`, `email_password`, `direccion_fisica`, `id_usuario`');
             $valores = array($logo, $nombre, $personeria_juridica, $celular, $nit, $rut, $ruc_numero, $ruc_doc, $vereda, $correo, $password_correo, $direccion_fisica, $id_usuario);
             $crear_item = crear_item($conn, $tabla, $columnas, $valores);
@@ -53,7 +53,7 @@
             echo json_encode($output);
             break; /* ACTUALIZAR ITEM */
         case 6:
-            echo tabla_jac($conn);
+            tabla_jac($conn, $link_general);
             break;
     }
 

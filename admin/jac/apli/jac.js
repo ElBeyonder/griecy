@@ -4,7 +4,8 @@ $(document).ready(function () {
 
     init();
     function init() {
-        $('.js-select2').select2({
+        $('.js-select2').select2();
+        $('#vereda').select2({
             dropdownParent: $('#modal_agregar_item')
         });
         $('.dropify').dropify({
@@ -45,11 +46,11 @@ $(document).ready(function () {
                 search:search,
             }
         })
-            .done(function(r) {
+            .done((r)=>{
                 $('#content_result_items').html(r);
             })
-            .fail(function(f) {
-                console.info(f);
+            .fail(function(f){
+                console.info('Error: ',f);
             })
     }
     $(document).on('click', '.page-link', function () {
@@ -59,7 +60,6 @@ $(document).ready(function () {
     $(document).on('keyup', '#search', function () {
         lista(1);
     });
-
 
     function agregar_jac() {
 
@@ -92,6 +92,7 @@ $(document).ready(function () {
                     .done((r)=> {
                         switch (r) {
                             case 'r':
+                                toastr.success('Jac agregado correctamente..');
                                 $('#form_agregar_jac')[0].reset();
                                 break;
                             case 'e':
@@ -111,7 +112,7 @@ $(document).ready(function () {
             }
         });
     }
-    function eliminar_tercero() {
+    function eliminar() {
 
         let id = $(this).val();
 
@@ -138,98 +139,18 @@ $(document).ready(function () {
                     .done((r)=> {
                         switch (r) {
                             case '':
+                                toastr.success('Item eliminado');
                                 break;
                             case 'e':
+                                toastr.error('Error al eliminar item');
                                 break;
                             default:
+                                toastr.warning('Proceso terminado con posibles errores');
                                 console.info('Resultado: ',r);
                         }
                     })
                     .fail((f)=> {
-                        console.info('Error:',f);
-                    })
-                    .always((a)=> {
-                        lista(1);
-                        init();
-                    })
-            }
-        });
-    }
-    function leer_tercero() {
-
-        let id = $(this).val();
-
-        $.ajax({
-            url:url,
-            method:'post',
-            dataType:'json',
-            data:{
-                opcion:3,
-                id:id
-            },
-        })
-            .done((r)=> {
-                let res = r[0];
-
-                var option = new Option(res.tipo, res.tipo, true, true);
-                $('#id_editar_tercero').val(res.id);
-                $('#nombre_completo').val(res.nombre_completo);
-                $('#tipo').select2({
-                    placeholder: 'Selecciona una opción',
-                });
-                $('#tipo').html(option).trigger('change');
-                $('#num_documento_identidad').val(res.num_documento_identidad);
-                $('#celular').val(res.celular);
-                $('#correo').val(res.correo);
-                $('#direccion_fisica').val(res.direccion_fisica);
-            })
-            .fail((f)=> {
-                console.info('Error:',f);
-            })
-            .always((a)=> {
-            })
-    }
-    function editar_tercero() {
-
-        let formData = new FormData(this);
-        formData.append('opcion',5);
-
-        Swal.fire({
-            title: '¿Esta segur@?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'SI',
-            cancelButtonText: 'NO',
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                $.ajax({
-                    url:url,
-                    method:'post',
-                    dataType:'json',
-                    data:formData,
-                    cache:false,
-                    processData:false,
-                    contentType:false,
-                    beforeSend:function () {
-
-                    }
-                })
-                    .done((r)=> {
-                        switch (r) {
-                            case '':
-                                toastr.success('tercero editado');
-                                break;
-                            case 'e':
-                                toastr.success('Error, al editar el tercero.');
-                                break;
-                            default:
-                                console.info('Resultado: ',r);
-                        }
-                    })
-                    .fail((f)=> {
+                        toastr.error('Error al eliminar item');
                         console.info('Error:',f);
                     })
                     .always((a)=> {
@@ -241,9 +162,7 @@ $(document).ready(function () {
     }
 
     $(document).on('submit', '#form_agregar_jac', agregar_jac);
-    $(document).on('submit', '#form_editar_tercero', editar_tercero);
-    $(document).on('click', '.eliminar', eliminar_tercero);
-    $(document).on('click', '.leer', leer_tercero);
+    $(document).on('click', '.eliminar', eliminar);
 
 });
 
