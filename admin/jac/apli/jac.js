@@ -36,6 +36,9 @@ $(document).ready(function () {
     function lista(page) {
 
         let search = $('#search').val();
+        let limit = $('#limit').val();
+        let order = $('#order').val();
+        let vereda = $('#vereda_filtro').val();
 
         $.ajax({
             url:url,
@@ -43,7 +46,10 @@ $(document).ready(function () {
             data:{
                 opcion:6,
                 page:page,
+                limit:limit,
+                order:order,
                 search:search,
+                vereda:vereda,
             }
         })
             .done((r)=>{
@@ -58,6 +64,9 @@ $(document).ready(function () {
         lista(page);
     });
     $(document).on('keyup', '#search', function () {
+        lista(1);
+    });
+    $(document).on('change', '#vereda_filtro, #limit, #order', function () {
         lista(1);
     });
 

@@ -44,10 +44,29 @@
                                     <div class="nk-block bg-white mt-3 p-3 shadow">
                                         <div class="row p-3">
                                             <div class="form-control-wrap" style="width: 200px;">
-                                                <select id="vereda_filtro" class="form-select js-select2" data-ui="xl" data-placeholder="Elegir vereda...">
+                                                <select id="vereda_filtro" class="form-select js-select2" data-ui="xl">
+                                                    <option value="" selected >Tod@s</option>
                                                     <?php echo lista_veredas_select($conn); ?>
                                                 </select>
                                                 <label class="form-label-outlined">Vereda</label>
+                                            </div>
+                                            <div class="form-control-wrap" style="width: 200px;">
+                                                <select id="limit" class="form-select js-select2" data-ui="xl">
+                                                    <option value="5" selected>5</option>
+                                                    <?php
+                                                        for ($i = 10; $i <= 250; $i += 10) {
+                                                            echo "<option value='" . $i . "'>" . $i . "</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                                <label class="form-label-outlined">Mostrar</label>
+                                            </div>
+                                            <div class="form-control-wrap" style="width: 200px;">
+                                                <select id="order" class="form-select js-select2" data-ui="xl" data-placeholder="Elegir vereda...">
+                                                    <option value="asc">Primero</option>
+                                                    <option value="desc" selected>Ultimo</option>
+                                                </select>
+                                                <label class="form-label-outlined">Orden x N°</label>
                                             </div>
                                         </div>
                                         <div class="row p-3">

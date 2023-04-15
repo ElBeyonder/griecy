@@ -523,32 +523,34 @@
 
     }
     function tabla_jac($conn, $link_general){
-        /* variables */
+
         $tabla ='junta_accion_comunal';
         $limit = escape_post_value($conn,'limit', 5);
         $order = escape_post_value($conn,'order', 'DESC');
         $search = escape_post_value($conn,'search', '');
+        $vereda = escape_post_value($conn,'vereda', '') ?? '';
         $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
         $start = ($page - 1) * ($limit ?? 5);
-        /* variables (fin) */
-
 
         $query=" SELECT ".$tabla.".id, ".$tabla.".logo, ".$tabla.".nombre, ".$tabla.".personeria_juridica, ".$tabla.".nit, ".$tabla.".rut,  ".$tabla.".ruc_numero, ".$tabla.".email,
                  vereda.nombre as vereda
                  FROM ".$tabla."  
                  INNER JOIN vereda ON ".$tabla.".id_vereda = vereda.id
+                 WHERE ".$tabla.".estado = 'true'
                ";
         if (!empty($search)){
-            $query.=' WHERE (
+            $query.=' AND (
                     '.$tabla.'.nombre LIKE "%'.str_replace(' ', '%', $search).'%"
                     OR '.$tabla.'.nit LIKE "%'.str_replace(' ', '%', $search).'%"
                     OR '.$tabla.'.rut LIKE "%'.str_replace(' ', '%', $search).'%"
                     OR '.$tabla.'.ruc_numero LIKE "%'.str_replace(' ', '%', $search).'%"
                     OR '.$tabla.'.email LIKE "%'.str_replace(' ', '%', $search).'%"
                     OR vereda.nombre LIKE "%'.str_replace(' ', '%', $search).'%"
-                    
                     )
                     ';
+        }
+        if (!empty($vereda)){
+            $query.=" AND vereda.id = $vereda ";
         }
 
         $result1 = $conn->query($query);
@@ -583,6 +585,12 @@
                     $img_avatar='<img class="img-jac" height="50px" src="'.$link_general.'admin/jac/dom/img/'.$row['logo'].'" alt="">';
                 }
 
+                $boton_terceros='<button flow="left" tooltip="Agregar tercero" class="btn btn-sm btn-outline-primary"><i class="fas fa-users"></i></button>';
+                $boton_actualizar='<button flow="left" tooltip="Editar" class="btn leer btn-sm btn-outline-success" value="'.$row['id'].'" type="button" >
+                                        <i class="fa fa-fw fa-pencil-alt"></i>
+                                  </button>';
+                $boton_eliminar='<button flow="left" tooltip="Eliminar" class="btn eliminar btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" ><i class="fas fa-trash-alt"></i></button>';
+
                 $output.='<tr>';
                 $output.='
                           <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
@@ -595,10 +603,9 @@
                           <td class="text-center">'.$row['ruc_numero'].'</td>
                           <td class="text-center">
                               <div class="btn-group">
-                                  <button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_editar_tercero" type="button" class="leer btn btn-outline-success">
-                                        <i class="fa fa-fw fa-pencil-alt"></i>
-                                  </button>
-                                  <button value="'.$row['id'].'" type="button" class="eliminar btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                  '.$boton_terceros.'
+                                  '.$boton_actualizar.'
+                                  '.$boton_eliminar.'
                               </div>
                           </td> 
                         ';
