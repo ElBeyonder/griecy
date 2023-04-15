@@ -77,7 +77,6 @@
                             </div>
                         </div>
                     </div>
-
                 <?php include '../nav/footer.php'; ?>
             </div>
         </div>

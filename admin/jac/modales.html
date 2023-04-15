@@ -120,6 +120,91 @@
         </div>
     </div>
 
+    <!-- modal agregar tercero -->
+    <div tabindex="-1" class="modal fade" id="modal_agregar_tercero" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_agregar_tercero" method="post">
+                <input type="hidden" name="id_jac" id="id_jac_agregar_tercero" value="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar Tercero</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-1 mt-1 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" name="nombre_completo" placeholder=" "/>
+                                        <span>nombre_completo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="number" name="num_doc_identidad" placeholder=" "/>
+                                        <span>Documento identidad #<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" name="lugar_expedicion" placeholder=" "/>
+                                        <span>Lugar Expedicion<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="number" name="celular" placeholder=" "/>
+                                        <span>Celular<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="email" name="correo" placeholder=" "/>
+                                        <span>correo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" name="direccion_fisica" placeholder=" "/>
+                                        <span>Direccion Fisica<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-control-wrap">
+                                    <select id="cargo" name="cargo" class="form-select js-select2" data-ui="xl">
+                                        <option value="representante_legal">Representante Legal</option>
+                                        <option value="contador">contador</option>
+                                        <option value="juridico">juridico</option>
+                                        <option value="etc..">etc..</option>
+                                    </select>
+                                    <label class="form-label-outlined">Cargo</label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12">
+                                <label>Imagen del documento de identidad</label>
+                                <input type="file" class="dropify" name="imagen_cc">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
 
 

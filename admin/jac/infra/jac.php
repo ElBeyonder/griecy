@@ -41,17 +41,20 @@
             tabla_terceros($conn);
             break; /* LISTA ITEMS */
         case 5:
-            $sql = "UPDATE ".$tabla."
-                    SET `nombre_completo`='".$nombre_completo."',`tipo`='".$tipo."',`num_documento_identidad`='".$num_documento_identidad."',`celular`='".$celular."',
-                    `correo`='".$correo."',`direccion_fisica`='".$direccion_fisica."'
-                    WHERE id='".$id."' ";
-            if ($conn->query($sql) === TRUE) {
-                $output='';
-            } else {
-                $output='e';
-            }
-            echo json_encode($output);
-            break; /* ACTUALIZAR ITEM */
+            $id_jac = escape_post_value($conn,'id_jac',1);
+            $nombre_completo = escape_post_value($conn,'nombre_completo','Jhon Zaens');
+            $num_doc_identidad = escape_post_value($conn,'num_doc_identidad', 11111111);
+            $lugar_expedicion = escape_post_value($conn,'lugar_expedicion', 'Santander de Quilichao');
+            $celular = escape_post_value($conn,'celular', 31125636365);
+            $direccion_fisica = escape_post_value($conn,'direccion_fisica', 'CLL 1 # 45-62');
+            $cargo = escape_post_value($conn,'cargo', 'voluntario');
+            $imagen_doc_identidad = get_name_imagen($_FILES['imagen_cc'], $ruta_carpeta) ?? '';
+
+            $columnas = array('`id_jac`, `nombre_completo`, `num_doc_identidad`, `lugar_expedicion`, `celular`, `correo`, `direccion_fisica`, `cargo`, `img_cc`, `id_usuario`');
+            $valores = array($id_jac, $nombre_completo, $num_doc_identidad, $lugar_expedicion, $celular, $correo, $direccion_fisica, $cargo, $imagen_doc_identidad, $id_usuario);
+            $crear_item = crear_item($conn, 'terceros', $columnas, $valores);
+            echo json_encode($crear_item);
+            break; /* Crear tercero */
         case 6:
             tabla_jac($conn, $link_general);
             break;

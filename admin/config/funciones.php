@@ -585,7 +585,9 @@
                     $img_avatar='<img class="img-jac" height="50px" src="'.$link_general.'admin/jac/dom/img/'.$row['logo'].'" alt="">';
                 }
 
-                $boton_terceros='<button flow="left" tooltip="Agregar tercero" class="btn btn-sm btn-outline-primary"><i class="fas fa-users"></i></button>';
+                $boton_terceros='<button flow="left" tooltip="Agregar tercero" value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_agregar_tercero" class="add-tercero btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-users"></i>
+                                 </button>';
                 $boton_actualizar='<button flow="left" tooltip="Editar" class="btn leer btn-sm btn-outline-success" value="'.$row['id'].'" type="button" >
                                         <i class="fa fa-fw fa-pencil-alt"></i>
                                   </button>';

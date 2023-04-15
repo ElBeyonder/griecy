@@ -8,6 +8,9 @@ $(document).ready(function () {
         $('#vereda').select2({
             dropdownParent: $('#modal_agregar_item')
         });
+        $('#cargo').select2({
+            dropdownParent: $('#modal_agregar_tercero')
+        });
         $('.dropify').dropify({
             messages: {
                 'default': 'Arrastra y suelta un archivo aquí o haz clic',
@@ -121,6 +124,57 @@ $(document).ready(function () {
             }
         });
     }
+    function agregar_tercero() {
+
+        let formData = new FormData(this);
+        formData.append('opcion',5);
+
+        Swal.fire({
+            title: '¿Esta segur@?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI',
+            cancelButtonText: 'NO',
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url:url,
+                    method:'post',
+                    dataType:'json',
+                    data:formData,
+                    cache:false,
+                    processData:false,
+                    contentType:false,
+                    beforeSend:function () {
+
+                    }
+                })
+                    .done((r)=> {
+                        switch (r) {
+                            case 'r':
+                                toastr.success('Tercero agregado correctamente..');
+                                $('#form_agregar_tercero')[0].reset();
+                                break;
+                            case 'e':
+                                toastr.warning('No se pudo agregar el item..');
+                                break;
+                            default:
+                                console.info('Resultado: ',r);
+                        }
+                    })
+                    .fail((f)=> {
+                        console.info('Error:',f);
+                    })
+                    .always((a)=> {
+                        lista(1);
+                        init();
+                    })
+            }
+        });
+    }
     function eliminar() {
 
         let id = $(this).val();
@@ -169,10 +223,19 @@ $(document).ready(function () {
             }
         });
     }
+    function item_add_tercero() {
+        let id = $(this).val();
+        $('#id_jac_agregar_tercero').val(id);
+    }
 
     $(document).on('submit', '#form_agregar_jac', agregar_jac);
+    $(document).on('submit', '#form_agregar_tercero', agregar_tercero);
     $(document).on('click', '.eliminar', eliminar);
+    $(document).on('click', '.add-tercero', item_add_tercero);
 
 });
+
+
+
 
 
