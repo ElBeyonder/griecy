@@ -9,6 +9,7 @@
     "jquery": "^3.6.4",
     "jquery-filepond": "^1.0.0",
     "select2": "^4.1.0-rc.0",
+    "stackable": "^1.4.6",
     "sweetalert2": "^11.7.3",
     "toastr": "^2.1.4"
   }

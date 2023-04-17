@@ -9,6 +9,14 @@
         }
         return $value;
     }
+    function escape_get_value($conn, $key, $default_value = '') {
+        global $conn;
+        $value = $default_value;
+        if (isset($_GET[$key])) {
+            $value = $conn->real_escape_string($_GET[$key]);
+        }
+        return $value;
+    }
     function get_name_imagen($imagen, $ruta_carpeta) {
         if (!isset($imagen["name"]) || empty($imagen["name"])) {
             return '';
@@ -43,6 +51,12 @@
 
         // Retornar el nombre del archivo guardado
         return $nombre_archivo;
+    }
+    function replaceEspacios($string){
+        return str_replace(' ', '-', $string);
+    }
+    function quitar_guiones($string){
+        return str_replace('-', ' ', $string);
     }
     /* scape variables */
 
@@ -404,8 +418,8 @@
         $result = $statement->fetchAll();
         $total_filter_data = $statement->rowCount();
         $output = '<div class="col-sm-12 text-left"><label class="label label-primary">Item(s): '.$total_data.'</label></div>';
-        $output.= '<table class="table table-tranx">
-                            <thead>
+        $output.= '<table id="table" class="table table-tranx">
+                            <thead class="card-header">
                                 <tr class="tb-tnx-head">
                                     <th class="text-center">N°</th>
                                     <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-images"></i></th>
@@ -423,21 +437,21 @@
                 $avatar = obtenerPrimerasDosLetras($row['usuario']);
 
                 $output.='<tr>
-                                  <td class="text-center">'.$row['id'].'</td>
-                                  <td class="text-center"><div class="user-avatar"><span>'.$avatar.'</span></div></td>
-                                  <td class="text-center">'.$row['usuario'].'</td>
-                                  <td class="text-left">'.$row['nombre_completo'].'</td>
-                                  <td class="text-center">'.$row['celular'].'</td>
-                                  <td class="text-center">'.$row['correo'].'</td>
-                                  <td class="text-center">
-                                      <div class="btn-group">
-                                          <button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_editar_usuario" type="button" class="leer btn btn-outline-success">
-                                                <i class="fa fa-fw fa-pencil-alt"></i>
-                                          </button>
-                                          <button value="'.$row['id'].'" type="button" class="eliminar btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                                      </div>
-                                  </td>
-                               </tr>';
+                             <td data-th="N° " class="text-center">'.$row['id'].'</td>
+                             <td class="text-center"><div class="user-avatar"><span>'.$avatar.'</span></div></td>
+                             <td data-th="Usuario" class="text-center">'.$row['usuario'].'</td>
+                             <td data-th="Nombre completo" class="text-left">'.$row['nombre_completo'].'</td>
+                             <td data-th="Celular" class="text-center">'.$row['celular'].'</td>
+                             <td data-th="Correo" class="text-center">'.$row['correo'].'</td>
+                             <td data-th="Opciones" class="text-center">
+                                 <div class="btn-group">
+                                     <button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_editar_usuario" type="button" class="leer btn btn-outline-success">
+                                           <i class="fa fa-fw fa-pencil-alt"></i>
+                                     </button>
+                                     <button value="'.$row['id'].'" type="button" class="eliminar btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                                 </div>
+                             </td>
+                         </tr>';
 
             }
         } else {
@@ -448,6 +462,49 @@
         $output.='</tbody></table><div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 center">';
         $output.= paginador($total_links, $page);
         $output.='</div>';
+        echo $output;
+
+    }
+    function tabla_usuarios_dt($conn){
+
+        $output='<table id="tabla_usuarios" class="display">';
+        $output.='<thead>';
+        $output.='<tr>';
+        $output.='  <th>N°</th>
+                    <th><i style="font-size: 1.5em;" class="fad fa-images"></i></th>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Celular</th>
+                    <th>Correo</th>
+                    <th><i style="font-size: 1.5em;" class="fad fa-toolbox"></i></th>';
+        $output.='</tr>';
+        $output.='</thead>';
+        $sql = "SELECT * FROM usuarios ";
+        $result = mysqli_query($conn, $sql);
+
+        $response = array();
+        $data = array();
+        while ($row = mysqli_fetch_array($result)) {
+            $avatar = obtenerPrimerasDosLetras($row['usuario']);
+            $output.='<tr>';
+            $output.='  <th>'.$row['id'].'</th>
+                        <th><div class="user-avatar"><span>'.$avatar.'</span></div></th>
+                        <th>'.$row['usuario'].'</th>
+                        <th>'.$row['nombre_completo'].'</th>
+                        <th>'.$row['celular'].'</th>
+                        <th>'.$row['correo'].'</th>
+                        <th>
+                            <div class="btn-group">
+                                 <button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_editar_usuario" type="button" class="leer btn btn-outline-success">
+                                       <i class="fa fa-fw fa-pencil-alt"></i>
+                                 </button>
+                                 <button value="'.$row['id'].'" type="button" class="eliminar btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </th>';
+            $output.='</tr>';
+        }
+        $output.='</table>';
+        mysqli_close($conn);
         echo $output;
 
     }
@@ -579,6 +636,7 @@
             while ($row = $result->fetch_assoc()) {
 
                 $avatar = obtenerPrimerasDosLetras($row['nombre']);
+                $nombre_jac_url = replaceEspacios($row['nombre']);
                 if (empty($row['logo'])){
                     $img_avatar='<div class="user-avatar"><span>'.$avatar.'</span></div>';
                 }else{
@@ -588,14 +646,14 @@
                 $boton_terceros='<button flow="left" tooltip="Agregar tercero" value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_agregar_tercero" class="add-tercero btn btn-sm btn-outline-primary">
                                         <i class="fas fa-users"></i>
                                  </button>';
-                $boton_actualizar='<button flow="left" tooltip="Editar" class="btn leer btn-sm btn-outline-success" value="'.$row['id'].'" type="button" >
+                $boton_actualizar='<a flow="left" tooltip="Editar" href="actualizar/'.$row['id'].'-'.$nombre_jac_url.'" class="btn leer btn-sm btn-outline-success">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
-                                  </button>';
+                                  </a>';
                 $boton_eliminar='<button flow="left" tooltip="Eliminar" class="btn eliminar btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" ><i class="fas fa-trash-alt"></i></button>';
 
                 $output.='<tr>';
                 $output.='
-                          <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
+                          <td class="text-center"><a href="actualizar/'.$row['id'].'-'.$nombre_jac_url.'">'.$row['id'].'</a></td>
                           <td class="text-center">'.$img_avatar.'</td>
                           <td class="text-center">'.$row['vereda'].'</td>
                           <td class="text-center">'.$row['nombre'].'</td>
@@ -611,6 +669,157 @@
                               </div>
                           </td> 
                         ';
+                $output.='</tr>';
+
+            }
+        } else {
+            $output.='<tr><td colspan="100%" class="text-sm-center">Sin resultados...</td></tr>';
+        }
+
+        $total_links = ceil($total_data/$limit);
+        $output.='</tbody></table><div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 center">';
+        $output.= paginador($total_links, $page);
+        $output.='</div>';
+        echo $output;
+
+    }
+    function tabla_tercero_jac($conn, $id_jac){
+
+        $tabla ='terceros';
+        $limit = escape_post_value($conn,'limit', 5);
+        $order = escape_post_value($conn,'order', 'DESC');
+        $search = escape_post_value($conn,'search', '');
+        $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
+        $start = ($page - 1) * ($limit ?? 5);
+
+        $query=" SELECT ".$tabla.".id, ".$tabla.".nombre_completo, ".$tabla.".num_doc_identidad, ".$tabla.".lugar_expedicion, ".$tabla.".cargo, ".$tabla.".celular,
+                 grupo_directivo.nombre as grupo_directivo
+                 FROM ".$tabla." 
+                 INNER JOIN grupo_directivo ON  ".$tabla.".id_grupo_directivo = grupo_directivo.id
+                 WHERE ".$tabla.".estado = 'true' AND ".$tabla.".id_jac = $id_jac
+               ";
+        if (!empty($search)){
+            $query.=' AND (
+                    '.$tabla.'.nombre_completo LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.num_doc_identidad LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.celular LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.correo LIKE "%'.str_replace(' ', '%', $search).'%"
+                    )
+                    ';
+        }
+
+        $result1 = $conn->query($query);
+        $query .= " ORDER BY $tabla.id $order LIMIT $start, $limit";
+        $result = $conn->query($query);
+        $total_data = $result1->num_rows;
+
+        $output = '<div class="col-sm-12 text-left mt-3 mb-3"><label class="label label-primary">Item(s): '.$total_data.'</label></div>';
+        $output.= '<table class="table table-tranx">
+                            <thead>
+                                <tr class="tb-tnx-head">
+                                    <th class="text-center">N°</th>
+                                    <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-images"></i></th>
+                                    <th class="text-center">Nombre completo</th>
+                                    <th class="text-center">NIT/CC</th>
+                                    <th class="text-center">Grupo Directivo</th>
+                                    <th class="text-center">Cargo</th>
+                                    <th class="text-center">Celular</th>
+                                    <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-toolbox"></i></th> 
+                                </tr>
+                            </thead>
+                         <tbody>';
+        if ($total_data > 0) {
+            $result->data_seek(0); // Volver al primer resultado
+            while ($row = $result->fetch_assoc()) {
+
+                $avatar = obtenerPrimerasDosLetras($row['nombre_completo']);
+
+                $boton_actualizar='<button flow="left" tooltip="Editar" type="button" class="btn leer btn-sm btn-outline-success">
+                                        <i class="fa fa-fw fa-pencil-alt"></i>
+                                   </button>';
+                $boton_eliminar='<button flow="left" tooltip="Eliminar" class="btn eliminar btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" ><i class="fas fa-trash-alt"></i></button>';
+
+                $output.='<tr>';
+                $output.='
+                          <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
+                          <td class="text-center"><div class="user-avatar"><span>'.$avatar.'</span></div></td>
+                          <td class="text-left">'.$row['nombre_completo'].'</td>
+                          <td class="text-left">'.$row['num_doc_identidad'].'</td>
+                          <td class="text-center">'.$row['grupo_directivo'].'</td>
+                          <td class="text-center">'.$row['cargo'].'</td>
+                          <td class="text-center">'.$row['celular'].'</td>
+                          <td class="text-center">
+                              <div class="btn-group">
+                                  '.$boton_actualizar.'
+                                  '.$boton_eliminar.'
+                              </div>
+                          </td> 
+                        ';
+                $output.='</tr>';
+
+            }
+        } else {
+            $output.='<tr><td colspan="100%" class="text-sm-center">Sin resultados...</td></tr>';
+        }
+
+        $total_links = ceil($total_data/$limit);
+        $output.='</tbody></table><div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 center">';
+        $output.= paginador($total_links, $page);
+        $output.='</div>';
+        echo $output;
+
+    }
+    function tabla_grupo_directivo($conn){
+
+        $tabla ='grupo_directivo';
+        $limit = escape_post_value($conn,'limit', 5);
+        $order = escape_post_value($conn,'order', 'DESC');
+        $search = escape_post_value($conn,'search', '');
+        $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
+        $start = ($page - 1) * ($limit ?? 5);
+
+        $query=" SELECT *FROM ".$tabla."  WHERE ".$tabla.".estado='true' ";
+        if (!empty($search)){
+            $query.=' AND ( '.$tabla.'.nombre LIKE "%'.str_replace(' ', '%', $search).'%" ) ';
+        }
+
+        $result1 = $conn->query($query);
+        $query .= " ORDER BY $tabla.id $order LIMIT $start, $limit";
+        $result = $conn->query($query);
+        $total_data = $result1->num_rows;
+
+        $output = '<div class="col-sm-12 text-left"><label class="label label-primary">Item(s): '.$total_data.'</label></div>';
+        $output.= '<table class="table table-tranx">
+                                <thead>
+                                    <tr class="tb-tnx-head">
+                                        <th class="text-center">N°</th>
+                                        <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-images"></i></th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-toolbox"></i></th> 
+                                    </tr>
+                                </thead>
+                             <tbody>';
+        if ($total_data > 0) {
+            $result->data_seek(0); // Volver al primer resultado
+            while ($row = $result->fetch_assoc()) {
+
+                $avatar = obtenerPrimerasDosLetras($row['nombre']);
+
+                $boton_eliminar='<button flow="left" tooltip="Eliminar" class="eliminar btn btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" ><i class="fas fa-trash-alt"></i></button>';
+                $boton_actualizar='<button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_actualizar_item" type="button" class="leer btn btn-sm btn-outline-success"><i class="fa fa-fw fa-pencil-alt"></i></button>';
+
+                $output.='<tr>';
+                $output.='
+                              <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
+                              <td class="text-center"><div class="user-avatar"><span>'.$avatar.'</span></div></td>
+                              <td class="text-center">'.$row['nombre'].'</td>
+                              <td class="text-center">
+                                  <div class="btn-group">
+                                      '.$boton_actualizar.'
+                                      '.$boton_eliminar.'
+                                  </div>
+                              </td> 
+                            ';
                 $output.='</tr>';
 
             }

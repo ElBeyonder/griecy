@@ -29,6 +29,7 @@ $(document).ready(function () {
         });
     }
 
+
     lista(1);
     function lista(page) {
 
@@ -43,10 +44,10 @@ $(document).ready(function () {
                 search:search,
             }
         })
-            .done(function (r) {
+            .done((r)=>{
                 $('#content_result_items').html(r);
             })
-            .fail(function (f) {
+            .fail((f)=> {
                 console.info(f);
             })
     }

@@ -16,14 +16,14 @@
                 <div class="nk-header-search ms-3 ms-xl-0">
                     <div class="form-control-wrap">
                         <div class="input-group">
-                            <div class="input-group-prepend"><button type="button" class="btn btn-info"><i class="fas fa-search"></i></button></div>
+                            <div class="input-group-prepend"><button type="button" class="btn btn-primary"><i class="fas fa-search"></i></button></div>
                             <input type="text" class="form-control" id="search" placeholder="Buscar...">
                         </div>
                     </div>
                 </div>
                 <div class="nk-header-tools">
                     <ul class="nk-quick-nav" id="nav_tools">
-                        <li id="li_button_agregar"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_agregar_item">Agregar</button></li>
+                        <li id="li_button_agregar"><button id="button_default_add" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_agregar_item">Agregar</button></li>
                         <li class="dropdown user-dropdown">
                             <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
                                 <div class="user-toggle">

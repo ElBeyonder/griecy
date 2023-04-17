@@ -21,7 +21,8 @@
     <link href="https://res.cloudinary.com/finnhvman/raw/upload/matter/matter-0.2.2.min.css" rel="stylesheet">
     <!-- tooltip css -->
     <link href="<?php echo $link_general; ?>lib/tooltip-css/tooltip.css" rel="stylesheet">
-
+    <!-- tooltip css -->
+    <link href="<?php echo $link_general; ?>lib/tooltip-css/tooltip.css" rel="stylesheet">
 
     <!-- css script general -->
     <link rel="stylesheet" href="<?php echo $link_general; ?>admin/config/dom/general.css">

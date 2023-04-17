@@ -1,3 +1,26 @@
+:root{
+
+
+
+
+}
+
+input#search{
+    border: gray 1px solid;
+}
+
+
+
+.text-center{
+    justify-content: center !important;
+    vertical-align: middle !important;
+
+}
+
+td{
+    vertical-align: middle !important;
+}
+
 .page-header {
     padding: 20px;
     margin-bottom: 20px;
@@ -49,3 +72,5 @@
 .select2-container .select2-selection__arrow {
     height: 56px !important; /* Ajusta la altura de la flecha según tus necesidades */
 }
+
+

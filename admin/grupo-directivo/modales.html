@@ -1,0 +1,68 @@
+
+    <div class="modal fade" id="modal_agregar_item" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_agregar_item" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="text" required name="nombre" placeholder=" "/>
+                                        <span>Nombre<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="modal_actualizar_item" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_actualizar_item" method="post">
+                <input type="hidden" id="id_item" name="id" class="d-none">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar item</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input type="text" required id="nombre" name="nombre" placeholder=" "/>
+                                        <span>Nombre<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Actualizar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+

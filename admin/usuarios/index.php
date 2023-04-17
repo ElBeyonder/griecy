@@ -45,7 +45,14 @@
                                 <div class="nk-content-body">
                                     <div class="nk-block bg-white mt-3 p-3 shadow">
                                         <div class="row p-3">
-                                            <div class="col-sm-12" id="content_result_items"><?php tabla_usuarios($conn, $connect, $id_usuario); ?></div>
+                                            <div class="col-sm-12 mt-3 mb-3">
+                                                <button type="button" class="btn btn-success m-1">Exportar Excel</button>
+                                                <button type="button" class="btn btn-danger m-1">Exportar PDF</button>
+                                                <button type="button" class="btn btn-info m-1">Exportar CSV</button>
+                                            </div>
+                                            <div id="content_result_items" class="col-sm-12 table-responsive">
+                                                <?php tabla_usuarios($conn, $connect, $id_usuario); ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
