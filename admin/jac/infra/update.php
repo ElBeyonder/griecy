@@ -64,7 +64,7 @@
 
             break;
         case 5:
-            $id_jac = escape_post_value($conn,'id_jac');
+            $id_jac = escape_post_value($conn,'id_jac', NULL);
             tabla_tercero_jac($conn, $id_jac);
             break;
     }

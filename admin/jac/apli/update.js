@@ -11,9 +11,6 @@ $(document).ready(function () {
         $('#vereda').select2({
             dropdownParent: $('#modal_agregar_item')
         });
-        $('#cargo').select2({
-            dropdownParent: $('#modal_agregar_tercero')
-        });
         $('.dropify').dropify({
             messages: {
                 'default': 'Arrastra y suelta un archivo aquí o haz clic',
@@ -36,7 +33,6 @@ $(document).ready(function () {
             dateFormat: "Y-m-d",
         });
     }
-
 
     lista(1);
     function lista(page) {
@@ -75,7 +71,6 @@ $(document).ready(function () {
     $(document).on('change', '#vereda_filtro, #limit, #order', function () {
         lista(1);
     });
-
 
     function eliminar() {
 
@@ -228,10 +223,9 @@ $(document).ready(function () {
         });
     }
 
-
     $(document).on('click', '.eliminar', eliminar);
     $(document).on('submit', '#form_actualizar_jac', actualizar_jac);
     $(document).on('submit', '#form_agregar_tercero', agregar_tercero);
 
-
 });
+

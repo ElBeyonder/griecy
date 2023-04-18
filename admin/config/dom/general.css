@@ -73,4 +73,18 @@ td{
     height: 56px !important; /* Ajusta la altura de la flecha según tus necesidades */
 }
 
+/* modal centered */
+.text-center{
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+}
 
+.modal-dialog{
+    display: flex !important;
+    vertical-align: center !important;
+    justify-content: center !important;
+    margin: auto !important;
+    flex: content !important;
+}

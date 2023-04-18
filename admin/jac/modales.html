@@ -132,14 +132,19 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            <div class="mb-1 mt-1 col-sm-12">
+                                <label>Imagen del documento de identidad</label>
+                                <input type="file" class="dropify" name="imagen_cc">
+                            </div>
                             <div class="mb-1 mt-1 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label class="matter-textfield-outlined col-12">
                                         <input required type="text" name="nombre_completo" placeholder=" "/>
-                                        <span>nombre_completo<span class="text-danger">*</span></span>
+                                        <span>Nombre completo<span class="text-danger">*</span></span>
                                     </label>
                                 </div>
                             </div>
+
                             <div class="mb-1 mt-1 col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label class="matter-textfield-outlined col-12">
@@ -172,7 +177,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                            <div class="mb-1 mt-1 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label class="matter-textfield-outlined col-12">
                                         <input required type="text" name="direccion_fisica" placeholder=" "/>
@@ -180,21 +185,26 @@
                                     </label>
                                 </div>
                             </div>
+
                             <div class="mb-1 mt-1 col-sm-12 col-md-6">
                                 <div class="form-control-wrap">
-                                    <select id="cargo" name="cargo" class="form-select js-select2" data-ui="xl">
-                                        <option value="representante_legal">Representante Legal</option>
+                                    <select required id="cargo" name="cargo" class="form-select js-select2" data-ui="xl">
                                         <option value="contador">contador</option>
-                                        <option value="juridico">juridico</option>
-                                        <option value="etc..">etc..</option>
+                                        <option value="representante">representante</option>
+                                        <option value="tesorero"></option>
                                     </select>
-                                    <label class="form-label-outlined">Cargo</label>
+                                    <label for="cargo" class="form-label-outlined">Cargo</label>
                                 </div>
                             </div>
-                            <div class="mb-1 mt-1 col-sm-12">
-                                <label>Imagen del documento de identidad</label>
-                                <input type="file" class="dropify" name="imagen_cc">
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-control-wrap">
+                                    <select required name="grupo_directivo" id="grupo_directivo" class="form-select js-select2" data-ui="xl">
+                                        <?php echo lista_grupoDirectivo_select($conn); ?>
+                                    </select>
+                                    <label for="grupo_directivo" class="form-label-outlined">Grupo Directivo</label>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="modal-footer bg-light">

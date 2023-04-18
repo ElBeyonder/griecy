@@ -1,5 +1,5 @@
 
-    <div class="modal fade" id="modal_agregar_item" aria-modal="true" role="dialog">
+    <div tabindex="-1" class="modal fade" id="modal_agregar_item" aria-modal="true" role="dialog">
         <div class="modal-dialog" role="document">
             <form onsubmit="event.preventDefault(event);" id="form_agregar_item" method="post">
                 <div class="modal-content">
@@ -12,7 +12,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="matter-textfield-outlined col-12">
-                                        <input type="text" required name="nombre" placeholder=" "/>
+                                        <input required type="text" name="nombre" placeholder=" "/>
                                         <span>Nombre<span class="text-danger">*</span></span>
                                     </label>
                                 </div>
