@@ -10,7 +10,6 @@
 
     switch ($opcion){
         case 1:
-
             $id_jac = escape_post_value($conn,'id_jac',1);
             $nombre_completo = escape_post_value($conn,'nombre_completo','Jhon Zaens');
             $num_doc_identidad = escape_post_value($conn,'num_doc_identidad', 11111111);
@@ -20,9 +19,10 @@
             $direccion_fisica = escape_post_value($conn,'direccion_fisica', 'CLL 1 # 45-62');
             $cargo = escape_post_value($conn,'cargo', 'voluntario');
             $imagen_doc_identidad = get_name_imagen($_FILES['imagen_cc'], $ruta_carpeta) ?? '';
+            $grupo_directivo = escape_post_value($conn,'grupo_directivo', );
 
-            $columnas = array('`id_jac`, `nombre_completo`, `num_doc_identidad`, `lugar_expedicion`, `celular`, `correo`, `direccion_fisica`, `cargo`, `img_cc`, `id_usuario`');
-            $valores = array($id_jac, $nombre_completo, $num_doc_identidad, $lugar_expedicion, $celular, $correo, $direccion_fisica, $cargo, $imagen_doc_identidad, $id_usuario);
+            $columnas = array('`id_jac`, `id_grupo_directivo`, `nombre_completo`, `num_doc_identidad`, `lugar_expedicion`, `celular`, `correo`, `direccion_fisica`, `cargo`, `img_cc`, `id_usuario`');
+            $valores = array($id_jac, $grupo_directivo, $nombre_completo, $num_doc_identidad, $lugar_expedicion, $celular, $correo, $direccion_fisica, $cargo, $imagen_doc_identidad, $id_usuario);
             $crear_item = crear_item($conn, 'terceros', $columnas, $valores);
             echo json_encode($crear_item);
             break;
@@ -59,19 +59,40 @@
             echo json_encode($output);
             break;
         case 4:
+            $id = escape_post_value($conn,'id');
+            $nombre_completo = escape_post_value($conn,'nombre_completo','Jhon Zaens');
+            $num_doc_identidad = escape_post_value($conn,'num_doc_identidad', 11111111);
+            $lugar_expedicion = escape_post_value($conn,'lugar_expedicion', 'Santander de Quilichao');
+            $celular = escape_post_value($conn,'celular', 31125636365);
+            $correo = escape_post_value($conn,'correo', '');
+            $direccion_fisica = escape_post_value($conn,'direccion_fisica', 'CLL 1 # 45-62');
+            $cargo = escape_post_value($conn,'cargo', 'voluntario');
+            $grupo_directivo = escape_post_value($conn,'grupo_directivo');
+            $imagen_doc_identidad = get_name_imagen($_FILES['imagen_cc'], $ruta_carpeta) ?? '';
 
-
-
+            $sql = "UPDATE terceros 
+                    SET `id_grupo_directivo`='".$grupo_directivo."', `nombre_completo`='".$nombre_completo."',`num_doc_identidad`='".$num_doc_identidad."',`lugar_expedicion`='".$lugar_expedicion."',
+                        `celular`='".$celular."',`correo`='".$correo."',`direccion_fisica`='".$direccion_fisica."',`cargo`='".$cargo."',
+                        `img_cc`=".($imagen_doc_identidad ? "'".$imagen_doc_identidad."'" : "img_cc")."
+                    WHERE id=".$id." ";
+            if ($conn->query($sql) === TRUE) {
+                $output='r';
+            } else {
+                $output="Error updating record: " . $conn->error;
+            }
+            $conn->close();
+            echo json_encode($output);
             break;
         case 5:
             $id_jac = escape_post_value($conn,'id_jac', NULL);
             tabla_tercero_jac($conn, $id_jac);
             break;
+        case 6:
+            $columnas=array('*');
+            $leer_item = leer_item($conn, $columnas, 'terceros', 'id', $id);
+            echo json_encode($leer_item);
+            break;
     }
-
-
-
-
 
 
 

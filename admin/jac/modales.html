@@ -215,6 +215,101 @@
         </div>
     </div>
 
+    <!-- modal actualizar tercero -->
+    <div tabindex="-1" class="modal fade" id="modal_actualizar_tercero" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form onsubmit="event.preventDefault(event);" id="form_actualizar_tercero" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" id="id_tercero_actualizar" value="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Actualizar Tercero</h5>
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-1 mt-1 col-sm-12" id="content_img_cc">
+                                <label>Imagen del documento de identidad</label>
+                                <input type="file" class="dropify" name="imagen_cc">
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" id="nombre_completo" name="nombre_completo" placeholder=" "/>
+                                        <span>Nombre completo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="number" id="num_doc_identidad" name="num_doc_identidad" placeholder=" "/>
+                                        <span>Documento identidad #<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" id="lugar_expedicion" name="lugar_expedicion" placeholder=" "/>
+                                        <span>Lugar Expedicion<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="number" id="celular" name="celular" placeholder=" "/>
+                                        <span>Celular<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="email" id="correo" name="correo" placeholder=" "/>
+                                        <span>correo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" id="direccion_fisica" name="direccion_fisica" placeholder=" "/>
+                                        <span>Direccion Fisica<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-control-wrap">
+                                    <select required id="cargo_editar" name="cargo" class="form-select js-select2" data-ui="xl">
+                                        <option value="contador">contador</option>
+                                        <option value="representante">representante</option>
+                                        <option value="tesorero"></option>
+                                    </select>
+                                    <label for="cargo_editar" class="form-label-outlined">Cargo</label>
+                                </div>
+                            </div>
+                            <div class="mb-1 mt-1 col-sm-12 col-md-6">
+                                <div class="form-control-wrap">
+                                    <select required name="grupo_directivo" id="grupo_directivo_editar" class="form-select js-select2" data-ui="xl">
+                                        <?php echo lista_grupoDirectivo_select($conn); ?>
+                                    </select>
+                                    <label for="grupo_directivo_editar" class="form-label-outlined">Grupo Directivo</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-outline-primary">Actualizar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
 
 

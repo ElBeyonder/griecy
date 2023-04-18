@@ -706,8 +706,10 @@
         $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
         $start = ($page - 1) * ($limit ?? 5);
 
-        $query=" SELECT ".$tabla.".id, ".$tabla.".nombre_completo, ".$tabla.".num_doc_identidad, ".$tabla.".lugar_expedicion, ".$tabla.".cargo, ".$tabla.".celular
+        $query=" SELECT ".$tabla.".id, ".$tabla.".nombre_completo, ".$tabla.".num_doc_identidad, ".$tabla.".lugar_expedicion, ".$tabla.".cargo, ".$tabla.".celular,
+                 grupo_directivo.nombre as grupo_directivo
                  FROM ".$tabla." 
+                 LEFT JOIN grupo_directivo ON ".$tabla.".id_grupo_directivo = grupo_directivo.id
                  WHERE ".$tabla.".estado = 'true' AND ".$tabla.".id_jac = $id_jac
                ";
         if (!empty($search)){
@@ -746,7 +748,7 @@
 
                 $avatar = obtenerPrimerasDosLetras($row['nombre_completo']);
 
-                $boton_actualizar='<button flow="left" tooltip="Editar" type="button" class="btn leer btn-sm btn-outline-success">
+                $boton_actualizar='<button flow="left" tooltip="Actualizar" type="button" value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_actualizar_tercero" class="btn leer btn-sm btn-outline-success">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
                                    </button>';
                 $boton_eliminar='<button flow="left" tooltip="Eliminar" class="btn eliminar btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" >
@@ -759,7 +761,7 @@
                           <td class="text-center"><div class="user-avatar"><span>'.$avatar.'</span></div></td>
                           <td class="text-left">'.$row['nombre_completo'].'</td>
                           <td class="text-left">'.$row['num_doc_identidad'].'</td>
-                          <td class="text-center"></td>
+                          <td class="text-center">'.$row['grupo_directivo'].'</td>
                           <td class="text-center">'.$row['cargo'].'</td>
                           <td class="text-center">'.$row['celular'].'</td>
                           <td class="text-right">
