@@ -850,6 +850,83 @@
         echo $output;
 
     }
+    function tabla_concursos($conn){
+
+        $tabla ='concursos';
+        $limit = escape_post_value($conn,'limit', 5);
+        $order = escape_post_value($conn,'order', 'DESC');
+        $search = escape_post_value($conn,'search', '');
+        $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
+        $start = ($page - 1) * ($limit ?? 5);
+
+        $query=" SELECT *FROM ".$tabla."  WHERE ".$tabla.".filtro='true' ";
+        if (!empty($search)){
+            $query.=' AND ( 
+                            '.$tabla.'.nombre LIKE "%'.str_replace(' ', '%', $search).'%" 
+                            OR '.$tabla.'.codigo LIKE "%'.str_replace(' ', '%', $search).'%" 
+                            OR '.$tabla.'.estado LIKE "%'.str_replace(' ', '%', $search).'%" 
+                            ) ';
+        }
+
+        $result1 = $conn->query($query);
+        $query .= " ORDER BY $tabla.id $order LIMIT $start, $limit";
+        $result = $conn->query($query);
+        $total_data = $result1->num_rows;
+
+        $output = '<div class="col-sm-12 text-left mt-3 mb-3"><label class="label label-primary">Item(s): '.$total_data.'</label></div>';
+        $output.= '<table class="table table-tranx">
+                                <thead>
+                                    <tr class="tb-tnx-head">
+                                        <th class="text-center">N°</th>
+                                        <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-images"></i></th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Codigo-version</th>
+                                        <th class="text-center">Inicio</th>
+                                        <th class="text-center">Fin</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-toolbox"></i></th> 
+                                    </tr>
+                                </thead>
+                             <tbody>';
+        if ($total_data > 0) {
+            $result->data_seek(0); // Volver al primer resultado
+            while ($row = $result->fetch_assoc()) {
+
+                $avatar = obtenerPrimerasDosLetras($row['nombre']);
+
+                $boton_eliminar='<button flow="left" tooltip="Eliminar" class="eliminar btn btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" ><i class="fas fa-trash-alt"></i></button>';
+                $boton_actualizar='<button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_actualizar_item" type="button" class="leer btn btn-sm btn-outline-success"><i class="fa fa-fw fa-pencil-alt"></i></button>';
+
+                $output.='<tr>';
+                $output.='
+                              <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
+                              <td class="text-center"><div class="user-avatar"><span>'.$avatar.'</span></div></td>
+                              <td class="text-center">'.$row['nombre'].'</td>
+                              <td class="text-center">'.$row['codigo'].'-'.$row['version'].'</td>
+                              <td class="text-center">'.$row['fecha_inicio'].'</td>
+                              <td class="text-center">'.$row['fecha_fin'].'</td>
+                              <td class="text-center">'.$row['estado'].'</td>
+                              <td class="text-center">
+                                  <div class="btn-group">
+                                      '.$boton_actualizar.'
+                                      '.$boton_eliminar.'
+                                  </div>
+                              </td> 
+                            ';
+                $output.='</tr>';
+
+            }
+        } else {
+            $output.='<tr><td colspan="100%" class="text-sm-center">Sin resultados...</td></tr>';
+        }
+
+        $total_links = ceil($total_data/$limit);
+        $output.='</tbody></table><div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 center">';
+        $output.= paginador($total_links, $page);
+        $output.='</div>';
+        echo $output;
+
+    }
     /* Tablas (FIN) */
 
 

@@ -9,8 +9,6 @@ input#search{
     border: gray 1px solid;
 }
 
-
-
 .text-center{
     justify-content: center !important;
     vertical-align: middle !important;
@@ -21,6 +19,7 @@ td{
     vertical-align: middle !important;
 }
 
+/* migas de pan  */
 .page-header {
     padding: 20px;
     margin-bottom: 20px;
@@ -28,8 +27,6 @@ td{
     margin-right: 0.5rem;
     border-bottom: 1px solid #e5e5e5;
 }
-
-
 .page-header h3 {
     margin-top: 0;
 }
@@ -38,7 +35,6 @@ td{
     margin-bottom: 0;
     padding: 0;
 }
-
 .breadcrumb li {
     display: inline-block;
     margin-right: 10px;
@@ -87,4 +83,9 @@ td{
     justify-content: center !important;
     margin: auto !important;
     flex: content !important;
+}
+
+/* dropify */
+.dropify-wrapper .dropify-message p {
+    font-size: 13pt !important;
 }

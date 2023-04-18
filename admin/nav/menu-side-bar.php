@@ -10,6 +10,12 @@
             </a>
         </li>
         <li class="nk-menu-item">
+            <a href="<?php echo $link_admin; ?>concursos/" class="nk-menu-link">
+                <span class="nk-menu-icon"><em class="fas fa-trophy"></em></span>
+                <span class="nk-menu-text">Concursos</span>
+            </a>
+        </li>
+        <li class="nk-menu-item">
             <a href="<?php echo $link_admin; ?>grupo-directivo/" class="nk-menu-link">
                 <span class="nk-menu-icon"><em class="fas fa-user-tie"></em></span>
                 <span class="nk-menu-text">Grupo directivo</span>
@@ -21,7 +27,6 @@
                 <span class="nk-menu-text">Usuarios</span>
             </a>
         </li>
-
     </ul>
 
 
