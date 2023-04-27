@@ -90,11 +90,60 @@
                     <div class="modal-body">
                         <div class="row gy-4">
                             <div class="col-sm-12">
+                                <div class="form-group" id="content_input_file">
+                                    <label for="doc_convocatoria"></label>
+                                    <input type="file" data-height="150px" class="dropify" name="doc_convocatoria">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="matter-textfield-outlined col-12">
-                                        <input type="text" required id="nombre" name="nombre" placeholder=" "/>
+                                        <input required type="text" name="nombre" id="nombre" placeholder=" "/>
                                         <span>Nombre<span class="text-danger">*</span></span>
                                     </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" name="codigo" id="codigo" placeholder=" "/>
+                                        <span>codigo<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required type="text" name="version" id="version" placeholder=" "/>
+                                        <span>version<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required readonly class="date-input" type="text" name="fecha_inicio" id="fecha_inicio" placeholder=" "/>
+                                        <span>fecha inicio<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="matter-textfield-outlined col-12">
+                                        <input required readonly class="date-input" type="text" name="fecha_fin" id="fecha_fin" placeholder=" "/>
+                                        <span>Fecha fin<span class="text-danger">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select required name="estado" id="estado" class="form-select js-select2" data-ui="xl">
+                                            <option value="activo">activo</option>
+                                            <option value="finalizado">finalizado</option>
+                                        </select>
+                                        <label class="form-label-outlined">Estado <span class="text-danger">*</span></label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -104,6 +153,28 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+
+    <div tabindex="-1" class="modal fade" id="modal_agregar_jac_concurso" aria-modal="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <input type="hidden" class="d-none" id="id_jac_add">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar jac al concurso</h5>
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><em class="icon ni ni-cross"></em></a>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12" id="content-result-jac">
+                            <?php tabla_jac_concurso($conn); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
         </div>
     </div>
 

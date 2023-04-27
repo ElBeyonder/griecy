@@ -177,13 +177,48 @@ $(document).ready(function () {
         })
             .done((r)=> {
                 let res = r[0];
+                let link_general = $('#link_general').val();
                 $('#id_item').val(res.id);
                 $('#nombre').val(res.nombre);
+                $('#codigo').val(res.codigo);
+                $('#version').val(res.version);
+                $('#fecha_inicio').val(res.fecha_inicio);
+                $('#fecha_fin').val(res.fecha_fin);
+                $('#estado').val(res.estado);
+                const doc =
+                    '<label>Imagen del documento de identidad</label>' +
+                    '<input type="file" class="dropify" name="doc_convocatoria"' +
+                    (res.doc_convocatoria ? ` data-default-file="${link_general}admin/concursos/dom/img/${res.doc_convocatoria}"` : '') +
+                    '>';
+                $('#content_input_file').html(doc);
             })
             .fail((f)=> {
                 console.info('Error:',f);
             })
             .always((a)=> {
+                $('.js-select2').select2();
+                $('.dropify').dropify({
+                    messages: {
+                        'default': 'Arrastra y suelta un archivo aquí o haz clic',
+                        'replace': 'Arrastra y suelta o haz clic para reemplazar',
+                        'remove': 'Eliminar',
+                        'error': 'Oops, algo salió mal.'
+                    },
+                    error: {
+                        'fileSize': 'El tamaño del archivo es demasiado grande ({{ value }} máximo).',
+                        'minWidth': 'El ancho de la imagen es demasiado pequeño ({{ value }}}px mínimo).',
+                        'maxWidth': 'El ancho de la imagen es demasiado grande ({{ value }}}px máximo).',
+                        'minHeight': 'La altura de la imagen es demasiado pequeña ({{ value }}}px mínimo).',
+                        'maxHeight': 'La altura de la imagen es demasiado grande ({{ value }}px máximo).',
+                        'imageFormat': 'El formato de la imagen no está permitido (solo {{ value }}).'
+                    }
+
+                });
+                $(".date-input").flatpickr({
+                    locale: "es",
+                    dateFormat: "Y-m-d",
+                });
+
             })
     }
     function actualizar() {

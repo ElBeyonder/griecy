@@ -247,7 +247,6 @@
     }
     /* modulo gastos (fin) */
 
-
     /* sessiones */
     function validar_session_activa($link_admin) {
         if (isset($_SESSION['login']) && $_SESSION['login'] === 'login') {
@@ -697,6 +696,93 @@
         echo $output;
 
     }
+    function tabla_jac_concurso($conn){
+
+        $tabla ='junta_accion_comunal';
+        $limit = escape_post_value($conn,'limit', 5);
+        $order = escape_post_value($conn,'order', 'DESC');
+        $search = escape_post_value($conn,'search', '');
+        $vereda = escape_post_value($conn,'vereda', '') ?? '';
+        $page = isset($_POST['page']) && $_POST['page'] > 0 ? $_POST['page'] : 1;
+        $start = ($page - 1) * ($limit ?? 5);
+
+        $query=" SELECT ".$tabla.".id, ".$tabla.".logo, ".$tabla.".nombre, ".$tabla.".personeria_juridica, ".$tabla.".nit, ".$tabla.".rut,  ".$tabla.".ruc_numero, ".$tabla.".email,
+                 vereda.nombre as vereda
+                 FROM ".$tabla."  
+                 INNER JOIN vereda ON ".$tabla.".id_vereda = vereda.id
+                 WHERE ".$tabla.".estado = 'true'
+               ";
+        if (!empty($search)){
+            $query.=' AND (
+                    '.$tabla.'.nombre LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.nit LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.rut LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.ruc_numero LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR '.$tabla.'.email LIKE "%'.str_replace(' ', '%', $search).'%"
+                    OR vereda.nombre LIKE "%'.str_replace(' ', '%', $search).'%"
+                    )
+                    ';
+        }
+        if (!empty($vereda)){
+            $query.=" AND vereda.id = $vereda ";
+        }
+
+        $result1 = $conn->query($query);
+        $query .= " ORDER BY $tabla.id $order LIMIT $start, $limit";
+        $result = $conn->query($query);
+        $total_data = $result1->num_rows;
+
+        $output = '<div class="col-sm-12 text-left"><label class="label label-primary">Item(s): '.$total_data.'</label></div>';
+        $output.= '<table class="table table-tranx">
+                            <thead>
+                                <tr class="tb-tnx-head">
+                                    <th class="text-center">N°</th>
+                                    <th class="text-center">Vereda</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">NIT</th>
+                                    <th class="text-center">RUT</th>
+                                    <th class="text-center">RUC</th>
+                                    <th class="text-center"><i style="font-size: 1.5em;" class="fad fa-toolbox"></i></th> 
+                                </tr>
+                            </thead>
+                         <tbody>';
+        if ($total_data > 0) {
+            $result->data_seek(0); // Volver al primer resultado
+            while ($row = $result->fetch_assoc()) {
+
+
+                $boton_agregar='<button flow="left" tooltip="Concursar" class="btn concursar btn-sm btn-outline-success" value="'.$row['id'].'" type="button">
+                                    <i class="fas fa-user-plus"></i>
+                                </button>';
+
+                $output.='<tr>';
+                $output.='
+                          <td class="text-center"><a href="#!">'.$row['id'].'</a></td>
+                          <td class="text-center">'.$row['vereda'].'</td>
+                          <td class="text-center">'.$row['nombre'].'</td>
+                          <td class="text-center">'.$row['nit'].'</td>
+                          <td class="text-center">'.$row['rut'].'</td>
+                          <td class="text-center">'.$row['ruc_numero'].'</td>
+                          <td class="text-center">
+                              <div class="btn-group">
+                                  '.$boton_agregar.'
+                              </div>
+                          </td> 
+                        ';
+                $output.='</tr>';
+
+            }
+        } else {
+            $output.='<tr><td colspan="100%" class="text-sm-center">Sin resultados...</td></tr>';
+        }
+
+        $total_links = ceil($total_data/$limit);
+        $output.='</tbody></table><div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 center">';
+        $output.= paginador($total_links, $page);
+        $output.='</div>';
+        echo $output;
+
+    }
     function tabla_tercero_jac($conn, $id_jac){
 
         $tabla ='terceros';
@@ -895,6 +981,7 @@
                 $avatar = obtenerPrimerasDosLetras($row['nombre']);
 
                 $boton_eliminar='<button flow="left" tooltip="Eliminar" class="eliminar btn btn-sm btn-outline-danger" value="'.$row['id'].'" type="button" ><i class="fas fa-trash-alt"></i></button>';
+                $boton_add='<button data-bs-toggle="modal" data-bs-target="#modal_agregar_jac_concurso" flow="left" tooltip="Agregar Jac" class="add-jac btn btn-sm btn-outline-info" value="'.$row['id'].'" type="button" ><i class="fas fa-plus"></i></button>';
                 $boton_actualizar='<button value="'.$row['id'].'" data-bs-toggle="modal" data-bs-target="#modal_actualizar_item" type="button" class="leer btn btn-sm btn-outline-success"><i class="fa fa-fw fa-pencil-alt"></i></button>';
 
                 $output.='<tr>';
@@ -908,6 +995,7 @@
                               <td class="text-center">'.$row['estado'].'</td>
                               <td class="text-center">
                                   <div class="btn-group">
+                                      '.$boton_add.'
                                       '.$boton_actualizar.'
                                       '.$boton_eliminar.'
                                   </div>

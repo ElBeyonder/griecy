@@ -34,9 +34,10 @@
             tabla_concursos($conn);
             break; /* LISTA ITEMS */
         case 5:
+            $doc_convocatoria = get_name_imagen($_FILES['doc_convocatoria'], $ruta_carpeta) ?? '';
             $sql = "UPDATE ".$tabla."
                     SET `nombre`='".$nombre."', `fecha_inicio`='".$fecha_inicio."', `fecha_fin`='".$fecha_fin."', `codigo`='".$codigo."', `version`='".$version."',
-                     `doc_convocatoria`='".$doc_convocatoria."', `estado`='".$estado."'
+                     `doc_convocatoria`=".($doc_convocatoria ? "'".$doc_convocatoria."'" : "doc_convocatoria").", `estado`='".$estado."'
                     WHERE id='".$id."' ";
             if ($conn->query($sql) === TRUE) {
                 $output='';
